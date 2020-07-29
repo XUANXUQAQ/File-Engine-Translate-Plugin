@@ -31,6 +31,8 @@ public class ConfigurationUtil {
         JSONObject settings = new JSONObject();
         settings.put("fromLang", "ZH_CN");
         settings.put("toLang", "EN");
+        settings.put("labelColor", 0xcccccc);
+        settings.put("backgroundColor", 0xffffff);
         File configFile = new File(configsPath);
         File parent = configFile.getParentFile();
         if (!parent.exists()) {

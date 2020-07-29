@@ -9,6 +9,11 @@ import FileEngine.translate.Plugin.versionCheck.VersionCheckUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -17,6 +22,10 @@ public class PluginMain extends Plugin {
     private volatile boolean startFlag = false;
     private volatile long startTime;
     public static boolean isNotExit = true;
+    private static ImageIcon icon;
+    private Color pluginLabelColor;
+    private Color pluginBackgroundColor;
+    private final Border border = BorderFactory.createLineBorder(new Color(73, 162, 255, 255));;
 
     /**
      * Do Not Remove, this is used for File-Engine to get message from the plugin.
@@ -107,6 +116,9 @@ public class PluginMain extends Plugin {
         instance.setToLang(toLang);
         instance.setFromLangName(instance.getKeyByValue(fromLang));
         instance.setToLangName(instance.getKeyByValue(toLang));
+        pluginBackgroundColor = new Color(json.getInteger("backgroundColor"));
+        pluginLabelColor = new Color(json.getInteger("labelColor"));
+        icon = new ImageIcon(PluginMain.class.getResource("/icon.png"));
     }
 
     /**
@@ -136,7 +148,11 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void keyPressed(KeyEvent e, String result) {
-        //todo 检测enter键以复制翻译结果
+        if (e.getKeyCode() == 10) {
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            Transferable trans = new StringSelection(result);
+            clipboard.setContents(trans, null);
+        }
     }
 
     /**
@@ -147,7 +163,6 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void keyTyped(KeyEvent e, String result) {
-
     }
 
     /**
@@ -157,7 +172,11 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void mousePressed(MouseEvent e, String result) {
-        //todo 双击以复制翻译结果
+        if (e.getClickCount() == 2) {
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            Transferable trans = new StringSelection(result);
+            clipboard.setContents(trans, null);
+        }
     }
 
     /**
@@ -176,7 +195,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public ImageIcon getPluginIcon() {
-        return null;
+        return icon;
     }
 
     /**
@@ -185,7 +204,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public String getOfficialSite() {
-        return null;
+        return "https://github.com/XUANXUQAQ/File-Engine-Translate-Plugin";
     }
 
     /**
@@ -240,7 +259,14 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void showResultOnLabel(String result, JLabel label, boolean isChosen) {
-
+        label.setIcon(icon);
+        label.setBorder(border);
+        label.setText(result);
+        if (isChosen) {
+            label.setBackground(pluginLabelColor);
+        } else {
+            label.setBackground(pluginBackgroundColor);
+        }
     }
 
     @Override
