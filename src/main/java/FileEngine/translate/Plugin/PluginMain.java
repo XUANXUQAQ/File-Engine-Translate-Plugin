@@ -1,10 +1,23 @@
-package FileEngine.Example.Plugin;
+package FileEngine.translate.Plugin;
+
+import FileEngine.translate.Plugin.config.ConfigurationUtil;
+import FileEngine.translate.Plugin.fileTranslate.FileTranslate;
+import FileEngine.translate.Plugin.settings.Settings;
+import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
+import FileEngine.translate.Plugin.translate.TranslateUtil;
+import FileEngine.translate.Plugin.versionCheck.VersionCheckUtil;
+import com.alibaba.fastjson.JSONObject;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class PluginMain extends Plugin {
+    private volatile String translateText;
+    private volatile boolean startFlag = false;
+    private volatile long startTime;
+    public static boolean isNotExit = true;
+
     /**
      * Do Not Remove, this is used for File-Engine to get message from the plugin.
      * You can show message using "displayMessage(String caption, String message)"
@@ -49,7 +62,17 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void textChanged(String text) {
-
+        if (!(text == null || text.isEmpty())) {
+            if (">file".equals(text)) {
+                FileTranslate.getInstance().showWindow();
+            } else if (">settings".equals(text)) {
+                Settings.getInstance().showWindow();
+            } else {
+                translateText = text;
+                startTime = System.currentTimeMillis();
+                startFlag = true;
+            }
+        }
     }
 
     /**
@@ -58,7 +81,32 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void loadPlugin() {
-
+        Settings instance = Settings.getInstance();
+        CachedThreadPool.getInstance().execute(() -> {
+            try {
+                long endTime;
+                while (isNotExit) {
+                    endTime = System.currentTimeMillis();
+                    if ((endTime - startTime > 500) && startFlag) {
+                        startFlag = false;
+                        String fromLang = instance.getFromLang();
+                        String toLang = instance.getToLang();
+                        String result = TranslateUtil.getTranslation(translateText, fromLang, toLang);
+                        addToResultQueue("翻译结果：");
+                        addToResultQueue(result);
+                        Thread.sleep(50);
+                    }
+                }
+            }catch (InterruptedException ignored) {
+            }
+        });
+        JSONObject json = ConfigurationUtil.readSettings();
+        String fromLang = json.getString("fromLang");
+        String toLang = json.getString("toLang");
+        instance.setFromLang(fromLang);
+        instance.setToLang(toLang);
+        instance.setFromLangName(instance.getKeyByValue(fromLang));
+        instance.setToLangName(instance.getKeyByValue(toLang));
     }
 
     /**
@@ -66,7 +114,8 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void unloadPlugin() {
-
+        isNotExit = false;
+        CachedThreadPool.getInstance().shutdown();
     }
 
     /**
@@ -77,7 +126,6 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void keyReleased(KeyEvent e, String result) {
-
     }
 
     /**
@@ -88,7 +136,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void keyPressed(KeyEvent e, String result) {
-
+        //todo 检测enter键以复制翻译结果
     }
 
     /**
@@ -109,7 +157,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void mousePressed(MouseEvent e, String result) {
-
+        //todo 双击以复制翻译结果
     }
 
     /**
@@ -119,7 +167,6 @@ public class PluginMain extends Plugin {
      */
     @Override
     public void mouseReleased(MouseEvent e, String result) {
-
     }
 
     /**
@@ -147,7 +194,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public String getVersion() {
-        return null;
+        return VersionCheckUtil._getPluginVersion();
     }
 
     /**
@@ -157,7 +204,10 @@ public class PluginMain extends Plugin {
      */
     @Override
     public String getDescription() {
-        return null;
+        return "A plugin to make File-Engine translate strings quickly.\n" +
+                "Usage: >trans 测试  --> return \"test\"\n" +
+                "一个使File-Engine快速翻译字符串的插件\n" +
+                "使用方法：>trans 测试 --> 返回 \"test\"";
     }
 
     /**
@@ -167,7 +217,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public boolean isLatest() {
-        return false;
+        return VersionCheckUtil._isLatest();
     }
 
     /**
@@ -178,7 +228,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public String getUpdateURL() {
-        return null;
+        return VersionCheckUtil._getUpdateURL();
     }
 
     /**
@@ -195,6 +245,6 @@ public class PluginMain extends Plugin {
 
     @Override
     public String getAuthor() {
-        return null;
+        return "XUANXU";
     }
 }

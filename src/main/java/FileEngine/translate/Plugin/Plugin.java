@@ -1,4 +1,4 @@
-package FileEngine.Example.Plugin;
+package FileEngine.translate.Plugin;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
