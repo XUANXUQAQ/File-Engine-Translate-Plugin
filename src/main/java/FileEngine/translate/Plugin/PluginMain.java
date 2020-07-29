@@ -108,8 +108,8 @@ public class PluginMain extends Plugin {
                         String result = TranslateUtil.getTranslation(translateText, fromLang, toLang);
                         addToResultQueue("翻译结果：");
                         addToResultQueue(result);
-                        Thread.sleep(50);
                     }
+                    Thread.sleep(50);
                 }
             }catch (InterruptedException ignored) {
             }
