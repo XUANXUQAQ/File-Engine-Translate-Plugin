@@ -21,6 +21,9 @@ public class FileTranslate {
     private JLabel labelStatus;
     private JLabel labelPlaceHolder;
     private JLabel labelPlaceHolder2;
+    private JLabel labelTranslateMode;
+    private JLabel labelChangeModeTip;
+    private JLabel labelShowCurrentMode;
     private final JFrame frame = new JFrame("File Translate");
     private volatile boolean isStop;
     private volatile int status = TRANSLATE_DONE;
@@ -66,9 +69,10 @@ public class FileTranslate {
     }
 
     public void showWindow() {
+        labelShowCurrentMode.setText(Settings.getInstance().getFromLang() + "--->" + Settings.getInstance().getToLang());
         frame.setContentPane(new FileTranslate().panel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(600, 300);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }

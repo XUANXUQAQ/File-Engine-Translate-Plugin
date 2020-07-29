@@ -53,7 +53,7 @@ public class ConfigurationUtil {
     }
 
     public static void saveSettingsToFile(String fromLang, String toLang) {
-        JSONObject json = new JSONObject();
+        JSONObject json = readSettings();
         json.put("fromLang", fromLang);
         json.put("toLang", toLang);
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(configsPath), StandardCharsets.UTF_8))) {

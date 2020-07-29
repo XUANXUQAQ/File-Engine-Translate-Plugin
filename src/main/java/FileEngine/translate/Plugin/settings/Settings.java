@@ -70,18 +70,22 @@ public class Settings {
 
     private Settings() {
         buttonSave.addActionListener(e -> {
-            fromLangName = (String) listFromLang.getSelectedValue();
-            toLangName = (String) listToLang.getSelectedValue();
-            fromLang = Name_Abbreviation_map.get(fromLangName);
-            toLang = Name_Abbreviation_map.get(toLangName);
-            if (fromLang == null) {
-                fromLang = "ZH_CN";
+            try {
+                fromLangName = (String) listFromLang.getSelectedValue();
+                toLangName = (String) listToLang.getSelectedValue();
+                fromLang = Name_Abbreviation_map.get(fromLangName);
+                toLang = Name_Abbreviation_map.get(toLangName);
+                if (fromLang == null) {
+                    fromLang = "ZH_CN";
+                }
+                if (toLang == null) {
+                    toLang = "EN";
+                }
+                ConfigurationUtil.saveSettingsToFile(fromLang, toLang);
+                frame.setVisible(false);
+            }catch (NullPointerException e1) {
+                JOptionPane.showMessageDialog(frame, "您未选中任何语言");
             }
-            if (toLang == null) {
-                toLang = "EN";
-            }
-            ConfigurationUtil.saveSettingsToFile(fromLang, toLang);
-            frame.setVisible(false);
         });
         addTextFieldSearchListener();
         addSearchThreads();
@@ -106,10 +110,6 @@ public class Settings {
     }
 
     public String getKeyByValue(String value) {
-        if (!isInitialized) {
-            initLanguageMap();
-            isInitialized = true;
-        }
         for(String key: Name_Abbreviation_map.keySet()){
             if(Name_Abbreviation_map.get(key).equals(value)){
                return key;
@@ -118,28 +118,29 @@ public class Settings {
         return "";
     }
 
-    private void initLanguageMap() {
-        Name_Abbreviation_map.put("English", "EN");
-        Name_Abbreviation_map.put("Chinese", "ZH_CN");
-        Name_Abbreviation_map.put("Japanese", "JA");
-        Name_Abbreviation_map.put("Korean", "KR");
-        Name_Abbreviation_map.put("French", "FR");
-        Name_Abbreviation_map.put("Russian", "RU");
-        Name_Abbreviation_map.put("Spanish", "SP");
-        Name_Abbreviation_map.put("Portuguese", "PT");
-        Name_Abbreviation_map.put("Italian", "IT");
-        Name_Abbreviation_map.put("Vietnamese", "VI");
-        Name_Abbreviation_map.put("Indonesian", "ID");
-        Name_Abbreviation_map.put("Arabic", "AR");
+    public void initLanguageMap() {
+        if (!isInitialized) {
+            isInitialized = true;
+            Name_Abbreviation_map.put("English", "en");
+            Name_Abbreviation_map.put("Chinese", "zh_CN");
+            Name_Abbreviation_map.put("Japanese", "ja");
+            Name_Abbreviation_map.put("Korean", "ko");
+            Name_Abbreviation_map.put("French", "fr");
+            Name_Abbreviation_map.put("Russian", "ru");
+            Name_Abbreviation_map.put("Spanish", "es");
+            Name_Abbreviation_map.put("Portuguese", "pt");
+            Name_Abbreviation_map.put("Italian", "it");
+            Name_Abbreviation_map.put("Vietnamese", "vi");
+            Name_Abbreviation_map.put("Indonesian", "id");
+            Name_Abbreviation_map.put("Arabic", "ar");
+        }
     }
 
     public void showWindow() {
-        if (!isInitialized) {
-            initLanguageMap();
-            isInitialized = true;
-        }
         listFromLang.setListData(Name_Abbreviation_map.keySet().toArray());
         listToLang.setListData(Name_Abbreviation_map.keySet().toArray());
+        listFromLang.setSelectedValue(fromLangName, true);
+        listToLang.setSelectedValue(toLangName, true);
         labelFromLang.setText(fromLangName);
         labelToLang.setText(toLangName);
         frame.setContentPane(SettingsBuilder.INSTANCE.panel);
@@ -191,6 +192,7 @@ public class Settings {
                 while (PluginMain.isNotExit) {
                     if (isStartSearchFromLang) {
                         isStartSearchFromLang = false;
+                        labelFromLang.setText("");
                         String text = textFieldSearchFromLang.getText().toLowerCase();
                         if (text.isEmpty()) {
                             listFromLang.setListData(Name_Abbreviation_map.keySet().toArray());
@@ -215,6 +217,7 @@ public class Settings {
                 while (PluginMain.isNotExit) {
                     if (isStartSearchToLang) {
                         isStartSearchToLang = false;
+                        labelToLang.setText("");
                         String text = textFieldSearchToLang.getText().toLowerCase();
                         if (text.isEmpty()) {
                             listToLang.setListData(Name_Abbreviation_map.keySet().toArray());

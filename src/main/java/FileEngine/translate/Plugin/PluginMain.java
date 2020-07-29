@@ -81,6 +81,10 @@ public class PluginMain extends Plugin {
                 startTime = System.currentTimeMillis();
                 startFlag = true;
             }
+        } else {
+            translateText = "";
+            startTime = System.currentTimeMillis();
+            startFlag = false;
         }
     }
 
@@ -91,6 +95,7 @@ public class PluginMain extends Plugin {
     @Override
     public void loadPlugin() {
         Settings instance = Settings.getInstance();
+        instance.initLanguageMap();
         CachedThreadPool.getInstance().execute(() -> {
             try {
                 long endTime;
