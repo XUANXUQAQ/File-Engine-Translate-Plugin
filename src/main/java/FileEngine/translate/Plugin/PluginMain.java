@@ -109,7 +109,7 @@ public class PluginMain extends Plugin {
                         addToResultQueue("翻译结果：");
                         addToResultQueue(result);
                     }
-                    Thread.sleep(50);
+                    Thread.sleep(1500);
                 }
             }catch (InterruptedException ignored) {
             }

@@ -2,19 +2,16 @@ package FileEngine.translate.Plugin.translate;
 
 import com.alibaba.fastjson.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 
 public class TranslateUtil {
     public static String getTranslation(String str, String fromLang, String toLang) {
         //拼接API网址
-        String address = "http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=" + fromLang + "&tl=" + toLang + "&q=" + str;
         try {
-            Thread.sleep(1500);
+            String address = "http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=" + fromLang + "&tl=" + toLang +
+                "&q=" + URLEncoder.encode(str, "UTF-8");
             JSONObject translateJson = getWebInfo(address);
             JSONObject result = translateJson.getJSONArray("sentences").getJSONObject(0);
             return result.getString("trans");
@@ -24,12 +21,11 @@ public class TranslateUtil {
         }
     }
 
-    private static JSONObject getWebInfo(String address) throws IOException, URISyntaxException {
-        StringBuilder strBuilder = new StringBuilder();
+    private static JSONObject getWebInfo(String address) throws IOException {
         URL url = new URL(address);
-        URI uri  = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(), null);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(uri.toURL().openStream()))) {
-            String s;
+        StringBuilder strBuilder = new StringBuilder();
+        String s;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8))) {
             while ((s = reader.readLine()) != null) {
                 strBuilder.append(s);
             }
