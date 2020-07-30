@@ -93,6 +93,7 @@ public class FileTranslate {
                 }
                 //生成两个文件，一个是只含有翻译结果的文件，一个是包含源字符串的翻译文件
                 String result = TranslateUtil.getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
+                Thread.sleep(1000);
 
                 withoutSourceW.write(result);
                 withoutSourceW.newLine();
@@ -104,7 +105,7 @@ public class FileTranslate {
                     break;
                 }
             }
-        }catch (IOException ignored) {
+        }catch (IOException | InterruptedException ignored) {
         }finally {
             status = TRANSLATE_DONE;
             labelStatus.setText("Translated.");
