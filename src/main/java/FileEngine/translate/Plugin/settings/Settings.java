@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class Settings {
     private JLabel labelTranslateTip;
@@ -192,6 +193,7 @@ public class Settings {
                 while (PluginMain.isNotExit) {
                     if (isStartSearchFromLang) {
                         isStartSearchFromLang = false;
+                        langSet.clear();
                         labelFromLang.setText("");
                         String text = textFieldSearchFromLang.getText().toLowerCase();
                         if (text.isEmpty()) {
@@ -205,7 +207,7 @@ public class Settings {
                             listFromLang.setListData(langSet.toArray());
                         }
                     }
-                    Thread.sleep(50);
+                    TimeUnit.MILLISECONDS.sleep(50);
                 }
             } catch (InterruptedException ignored) {
             }
@@ -216,6 +218,7 @@ public class Settings {
                 HashSet<String> langSet = new HashSet<>();
                 while (PluginMain.isNotExit) {
                     if (isStartSearchToLang) {
+                        langSet.clear();
                         isStartSearchToLang = false;
                         labelToLang.setText("");
                         String text = textFieldSearchToLang.getText().toLowerCase();
