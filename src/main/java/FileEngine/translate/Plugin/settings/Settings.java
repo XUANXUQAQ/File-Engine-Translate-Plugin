@@ -144,6 +144,8 @@ public class Settings {
         listToLang.setSelectedValue(toLangName, true);
         labelFromLang.setText(fromLangName);
         labelToLang.setText(toLangName);
+        textFieldSearchFromLang.setText("");
+        textFieldSearchToLang.setText("");
         frame.setContentPane(SettingsBuilder.INSTANCE.panel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setSize(600, 800);
