@@ -72,9 +72,9 @@ public class PluginMain extends Plugin {
     @Override
     public void textChanged(String text) {
         if (!(text == null || text.isEmpty())) {
-            if (">file".equals(text)) {
+            if (">file".equalsIgnoreCase(text)) {
                 FileTranslate.getInstance().showWindow();
-            } else if (">settings".equals(text)) {
+            } else if (">settings".equalsIgnoreCase(text)) {
                 Settings.getInstance().showWindow();
             } else {
                 translateText = text;

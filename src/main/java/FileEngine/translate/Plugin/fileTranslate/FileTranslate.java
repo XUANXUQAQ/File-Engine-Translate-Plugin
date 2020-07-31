@@ -69,8 +69,9 @@ public class FileTranslate {
     }
 
     public void showWindow() {
-        labelShowCurrentMode.setText(Settings.getInstance().getFromLang() + "--->" + Settings.getInstance().getToLang());
-        frame.setContentPane(new FileTranslate().panel);
+        String t = Settings.getInstance().getFromLang() + "--->" + Settings.getInstance().getToLang();
+        labelShowCurrentMode.setText(t);
+        frame.setContentPane(FileTranslateBuilder.INSTANCE.panel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setSize(600, 300);
         frame.setLocationRelativeTo(null);
