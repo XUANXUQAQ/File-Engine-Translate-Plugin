@@ -229,9 +229,9 @@ public class PluginMain extends Plugin {
     @Override
     public String getDescription() {
         return "A plugin to make File-Engine translate strings quickly.\n" +
-                "Usage: >trans 测试  --> return \"test\"\n" +
+                "Usage: >tr 测试  --> return \"test\"\n" +
                 "一个使File-Engine快速翻译字符串的插件\n" +
-                "使用方法：>trans 测试 --> 返回 \"test\"";
+                "使用方法：>tr 测试 --> 返回 \"test\"";
     }
 
     /**
