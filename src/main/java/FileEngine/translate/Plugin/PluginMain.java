@@ -74,7 +74,7 @@ public class PluginMain extends Plugin {
         if (!(text == null || text.isEmpty())) {
             if (">file".equalsIgnoreCase(text)) {
                 FileTranslate.getInstance().showWindow();
-            } else if (">settings".equalsIgnoreCase(text)) {
+            } else if (">set".equalsIgnoreCase(text)) {
                 Settings.getInstance().showWindow();
             } else {
                 translateText = text;
@@ -228,10 +228,23 @@ public class PluginMain extends Plugin {
      */
     @Override
     public String getDescription() {
-        return "A plugin to make File-Engine translate strings quickly.\n" +
-                "Usage: >tr 测试  --> return \"test\"\n" +
+        return "English instruction:\n" +
+                "A plugin that enables File-Engine to quickly translate strings\n" +
+                "How to use: >tr test --> return \"test\"\n" +
+                "Type \">tr >set\" in the search box ---> open the setting window to select the translation language\n" +
+                "Enter \">tr >file\" in the search box --->Open the file translation window:\n" +
+                "File translation can automatically translate each line of text in the file to generate 2 files: withSource.txt withoutSource.txt\n" +
+                "withSource.txt: displayed as \"original string = translation string\"\n" +
+                "withoutSource.txt: displayed as \"translation string\"\n" +
+                "\n" +
+                "中文说明：\n" +
                 "一个使File-Engine快速翻译字符串的插件\n" +
-                "使用方法：>tr 测试 --> 返回 \"test\"";
+                "使用方法：>tr 测试 --> 返回 \"test\"\n" +
+                "在搜索框中输入\" >tr >set \" ---> 打开设置窗口以选择翻译语言\n" +
+                "在搜索框中输入 \" >tr >file \" --->打开文件翻译功能窗口：\n" +
+                "文件翻译可以自动翻译文件中的每一行文本，生成2个文件：withSource.txt withoutSource.txt\n" +
+                "withSource.txt ：显示为  \"原字符串=翻译字符串\"\n" +
+                "withoutSource.txt ：显示为  \"翻译字符串\"";
     }
 
     /**
