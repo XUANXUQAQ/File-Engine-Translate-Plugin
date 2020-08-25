@@ -7,18 +7,13 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 public class TranslateUtil {
-    public static String getTranslation(String str, String fromLang, String toLang) {
+    public static String getTranslation(String str, String fromLang, String toLang) throws IOException {
         //拼接API网址
-        try {
-            String address = "http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=" + fromLang + "&tl=" + toLang +
-                "&q=" + URLEncoder.encode(str, "UTF-8");
-            JSONObject translateJson = getWebInfo(address);
-            JSONObject result = translateJson.getJSONArray("sentences").getJSONObject(0);
-            return result.getString("trans");
-        }catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+        String address = "http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=" + fromLang + "&tl=" + toLang +
+            "&q=" + URLEncoder.encode(str, "UTF-8");
+        JSONObject translateJson = getWebInfo(address);
+        JSONObject result = translateJson.getJSONArray("sentences").getJSONObject(0);
+        return result.getString("trans");
     }
 
     private static JSONObject getWebInfo(String address) throws IOException {

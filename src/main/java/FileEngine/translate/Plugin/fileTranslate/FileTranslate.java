@@ -95,8 +95,14 @@ public class FileTranslate {
                     eachLine = eachLine.substring(0, eachLine.length() - 1);
                 }
                 //生成两个文件，一个是只含有翻译结果的文件，一个是包含源字符串的翻译文件
-                String result = TranslateUtil.getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
-                TimeUnit.SECONDS.sleep(1);
+                String result = "";
+                try {
+                    result = TranslateUtil.getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
+                }catch (IOException e) {
+                    labelStatus.setText("Request translation too frequently, please try later.");
+                    break;
+                }
+                TimeUnit.SECONDS.sleep(2);
 
                 withoutSourceW.write(result);
                 withoutSourceW.newLine();

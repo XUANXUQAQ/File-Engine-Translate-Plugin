@@ -7,6 +7,7 @@ import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
 import FileEngine.translate.Plugin.translate.TranslateUtil;
 import FileEngine.translate.Plugin.versionCheck.VersionCheckUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.omg.CORBA.INTERNAL;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,6 +17,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class PluginMain extends Plugin {
     private volatile String translateText;
@@ -97,19 +100,23 @@ public class PluginMain extends Plugin {
         Settings instance = Settings.getInstance();
         instance.initLanguageMap();
         CachedThreadPool.getInstance().execute(() -> {
+            long endTime;
             try {
-                long endTime;
                 while (isNotExit) {
                     endTime = System.currentTimeMillis();
                     if ((endTime - startTime > 500) && startFlag) {
                         startFlag = false;
                         String fromLang = instance.getFromLang();
                         String toLang = instance.getToLang();
-                        String result = TranslateUtil.getTranslation(translateText, fromLang, toLang);
+                        String result = "";
+                        try {
+                            result = TranslateUtil.getTranslation(translateText, fromLang, toLang);
+                        }catch (IOException ignored) {
+                        }
                         addToResultQueue("翻译结果：");
                         addToResultQueue(result);
                     }
-                    Thread.sleep(1500);
+                    TimeUnit.MILLISECONDS.sleep(1500);
                 }
             }catch (InterruptedException ignored) {
             }
