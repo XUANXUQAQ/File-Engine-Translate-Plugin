@@ -6,6 +6,7 @@ import FileEngine.translate.Plugin.translate.TranslateUtil;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class FileTranslate {
     private JTextField textFieldSourse;
@@ -24,6 +25,7 @@ public class FileTranslate {
     private JLabel labelTranslateMode;
     private JLabel labelChangeModeTip;
     private JLabel labelShowCurrentMode;
+    private JLabel labelTranslatedColumn;
     private final JFrame frame = new JFrame("File Translate");
     private volatile boolean isStop;
     private volatile int status = TRANSLATE_DONE;
@@ -94,14 +96,14 @@ public class FileTranslate {
                 }
                 //生成两个文件，一个是只含有翻译结果的文件，一个是包含源字符串的翻译文件
                 String result = TranslateUtil.getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
-                Thread.sleep(1000);
+                TimeUnit.SECONDS.sleep(1);
 
                 withoutSourceW.write(result);
                 withoutSourceW.newLine();
 
                 withSourceW.write(eachLine + "=" + result);
                 withSourceW.newLine();
-
+                labelTranslatedColumn.setText("Number of translated rows:");
                 if (isStop) {
                     break;
                 }
@@ -115,6 +117,7 @@ public class FileTranslate {
             } catch (InterruptedException ignored) {
             }
             labelStatus.setText("");
+            labelTranslatedColumn.setText("");
         }
     }
 }

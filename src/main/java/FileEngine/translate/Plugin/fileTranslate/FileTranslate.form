@@ -142,6 +142,14 @@
           <text value="你可以输入 &quot;&gt;trans &gt;settings&quot; 以修改。"/>
         </properties>
       </component>
+      <component id="59e6e" class="javax.swing.JLabel" binding="labelTranslatedColumn">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
