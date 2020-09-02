@@ -104,6 +104,7 @@ public class FileTranslate {
              BufferedWriter withoutSourceW = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(withoutSource)));
              BufferedWriter withSourceW = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(withSource)))) {
             String eachLine;
+            int count = 0;
             while ((eachLine = br.readLine()) != null) {
                 if (eachLine.endsWith("=")) {
                     eachLine = eachLine.substring(0, eachLine.length() - 1);
@@ -116,14 +117,15 @@ public class FileTranslate {
                     labelStatus.setText("Request translation too frequently, please try later.");
                     break;
                 }
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.MILLISECONDS.sleep(1500);
 
                 withoutSourceW.write(result);
                 withoutSourceW.newLine();
 
                 withSourceW.write(eachLine + "=" + result);
                 withSourceW.newLine();
-                labelTranslatedColumn.setText("Number of translated rows:");
+                count++;
+                labelTranslatedColumn.setText("Number of translated rows:" + count);
                 if (isStop) {
                     break;
                 }
