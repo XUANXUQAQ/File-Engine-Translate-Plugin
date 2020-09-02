@@ -1,13 +1,11 @@
 package FileEngine.translate.Plugin;
 
-import FileEngine.translate.Plugin.config.ConfigurationUtil;
 import FileEngine.translate.Plugin.fileTranslate.FileTranslate;
 import FileEngine.translate.Plugin.settings.Settings;
 import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
 import FileEngine.translate.Plugin.translate.TranslateUtil;
 import FileEngine.translate.Plugin.versionCheck.VersionCheckUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.omg.CORBA.INTERNAL;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,6 +16,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 
 public class PluginMain extends Plugin {
@@ -98,7 +97,6 @@ public class PluginMain extends Plugin {
     @Override
     public void loadPlugin() {
         Settings instance = Settings.getInstance();
-        instance.initLanguageMap();
         CachedThreadPool.getInstance().execute(() -> {
             long endTime;
             try {
@@ -110,8 +108,8 @@ public class PluginMain extends Plugin {
                         String toLang = instance.getToLang();
                         String result = "";
                         try {
-                            result = TranslateUtil.getTranslation(translateText, fromLang, toLang);
-                        }catch (IOException ignored) {
+                            result = TranslateUtil.getInstance().getTranslation(translateText, fromLang, toLang);
+                        }catch (IOException | IllegalAccessException | InvocationTargetException ignored) {
                         }
                         addToResultQueue("翻译结果：");
                         addToResultQueue(result);
@@ -121,13 +119,13 @@ public class PluginMain extends Plugin {
             }catch (InterruptedException ignored) {
             }
         });
-        JSONObject json = ConfigurationUtil.readSettings();
+        JSONObject json = Settings.readSettings();
         String fromLang = json.getString("fromLang");
         String toLang = json.getString("toLang");
         instance.setFromLang(fromLang);
         instance.setToLang(toLang);
-        instance.setFromLangName(instance.getKeyByValue(fromLang));
-        instance.setToLangName(instance.getKeyByValue(toLang));
+        instance.setFromLangName(instance.getAbbreviationByLangName(fromLang));
+        instance.setToLangName(instance.getAbbreviationByLangName(toLang));
         pluginBackgroundColor = new Color(json.getInteger("backgroundColor"));
         pluginLabelColor = new Color(json.getInteger("labelColor"));
         icon = new ImageIcon(PluginMain.class.getResource("/icon.png"));

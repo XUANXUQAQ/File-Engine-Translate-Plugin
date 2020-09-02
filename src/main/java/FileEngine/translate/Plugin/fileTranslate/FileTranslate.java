@@ -1,11 +1,13 @@
 package FileEngine.translate.Plugin.fileTranslate;
 
+import FileEngine.translate.Plugin.PluginMain;
 import FileEngine.translate.Plugin.settings.Settings;
 import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
 import FileEngine.translate.Plugin.translate.TranslateUtil;
 
 import javax.swing.*;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 
 public class FileTranslate {
@@ -68,6 +70,18 @@ public class FileTranslate {
             }
         });
         buttonStop.addActionListener(e -> isStop = true);
+
+        CachedThreadPool.getInstance().execute(() -> {
+            try {
+                while (PluginMain.isNotExit) {
+                    if (frame.isVisible()) {
+                        frame.repaint();
+                    }
+                    TimeUnit.MILLISECONDS.sleep(200);
+                }
+            }catch (InterruptedException ignored) {
+            }
+        });
     }
 
     public void showWindow() {
@@ -75,7 +89,7 @@ public class FileTranslate {
         labelShowCurrentMode.setText(t);
         frame.setContentPane(FileTranslateBuilder.INSTANCE.panel);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setSize(600, 300);
+        frame.setSize(800, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -95,10 +109,10 @@ public class FileTranslate {
                     eachLine = eachLine.substring(0, eachLine.length() - 1);
                 }
                 //生成两个文件，一个是只含有翻译结果的文件，一个是包含源字符串的翻译文件
-                String result = "";
+                String result;
                 try {
-                    result = TranslateUtil.getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
-                }catch (IOException e) {
+                    result = TranslateUtil.getInstance().getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
+                }catch (IOException | IllegalAccessException | InvocationTargetException e) {
                     labelStatus.setText("Request translation too frequently, please try later.");
                     break;
                 }
