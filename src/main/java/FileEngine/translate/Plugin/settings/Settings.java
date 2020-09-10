@@ -32,6 +32,8 @@ public class Settings {
     private JLabel labelPlaceHolder;
     private JLabel labelSearchTip;
     private JLabel labelSearchTip2;
+    private JScrollPane scrollPaneFromLang;
+    private JScrollPane scrollPaneToLang;
     private String fromLangName;
     private String toLangName;
     private volatile String fromLang;
@@ -179,18 +181,23 @@ public class Settings {
     }
 
     private void initLanguageMap() {
-        Name_Abbreviation_map.put("English", "en");
-        Name_Abbreviation_map.put("Chinese", "zh_CN");
-        Name_Abbreviation_map.put("Japanese", "ja");
-        Name_Abbreviation_map.put("Korean", "ko");
-        Name_Abbreviation_map.put("French", "fr");
-        Name_Abbreviation_map.put("Russian", "ru");
-        Name_Abbreviation_map.put("Spanish", "es");
-        Name_Abbreviation_map.put("Portuguese", "pt");
-        Name_Abbreviation_map.put("Italian", "it");
-        Name_Abbreviation_map.put("Vietnamese", "vi");
-        Name_Abbreviation_map.put("Indonesian", "id");
-        Name_Abbreviation_map.put("Arabic", "ar");
+        //todo 添加语言
+        Name_Abbreviation_map.put("英语", "en");
+        Name_Abbreviation_map.put("中文", "zh_CN");
+        Name_Abbreviation_map.put("日语", "ja");
+        Name_Abbreviation_map.put("韩语", "ko");
+        Name_Abbreviation_map.put("法语", "fr");
+        Name_Abbreviation_map.put("俄语", "ru");
+        Name_Abbreviation_map.put("西班牙语", "es");
+        Name_Abbreviation_map.put("葡萄牙语", "pt");
+        Name_Abbreviation_map.put("意大利语", "it");
+        Name_Abbreviation_map.put("越南语", "vi");
+        Name_Abbreviation_map.put("印度尼西亚语", "id");
+        Name_Abbreviation_map.put("阿拉伯语", "ar");
+        Name_Abbreviation_map.put("丹麦语", "da");
+        Name_Abbreviation_map.put("德语", "de");
+        Name_Abbreviation_map.put("希腊语", "el");
+        Name_Abbreviation_map.put("波兰语", "pl");
     }
 
     public void showWindow() {

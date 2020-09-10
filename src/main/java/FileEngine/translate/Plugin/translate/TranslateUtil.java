@@ -24,6 +24,7 @@ public class TranslateUtil {
             TRANSLATE_API_QUEUE.add(TranslateUtil.class.getDeclaredMethod("getTranslationByBaiduApi",
                     String.class, TranslationString.class, String.class, String.class));
 
+            //todo 添加语言
             GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("zh_CN", "zh");
             GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("ja", "jp");
             GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("ko", "kor");
@@ -31,6 +32,8 @@ public class TranslateUtil {
             GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("es", "spa");
             GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("vi", "vie");
             GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("ar", "ara");
+            GOOGLE_LANG_ABBR_2_BAIDU_LANG_ABBR.put("da", "dan");
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
