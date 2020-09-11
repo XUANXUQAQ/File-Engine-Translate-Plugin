@@ -66,6 +66,12 @@ public class PluginMain extends Plugin {
         _clearResultQueue();
     }
 
+    @Override
+    public void setCurrentTheme(int defaultColor, int choseLabelColor) {
+        pluginBackgroundColor = new Color(defaultColor);
+        pluginLabelColor = new Color(choseLabelColor);
+    }
+
     /**
      * When the search bar textChanged, this function will be called.
      * @param text
@@ -126,8 +132,6 @@ public class PluginMain extends Plugin {
         instance.setToLang(toLang);
         instance.setFromLangName(instance.getAbbreviationByLangName(fromLang));
         instance.setToLangName(instance.getAbbreviationByLangName(toLang));
-        pluginBackgroundColor = new Color(json.getInteger("backgroundColor"));
-        pluginLabelColor = new Color(json.getInteger("labelColor"));
         icon = new ImageIcon(PluginMain.class.getResource("/icon.png"));
     }
 
