@@ -3,6 +3,7 @@ package FileEngine.translate.Plugin;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Plugin {
@@ -59,7 +60,7 @@ public abstract class Plugin {
 
     public abstract String getDescription();
 
-    public abstract boolean isLatest();
+    public abstract boolean isLatest() throws Exception;
 
     public abstract String getUpdateURL();
 
