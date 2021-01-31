@@ -288,7 +288,6 @@ public class PluginMain extends Plugin {
     @Override
     public void showResultOnLabel(String result, JLabel label, boolean isChosen) {
         label.setIcon(icon);
-        label.setBorder(border);
         label.setText(result);
         if (isChosen) {
             label.setBackground(pluginLabelColor);
