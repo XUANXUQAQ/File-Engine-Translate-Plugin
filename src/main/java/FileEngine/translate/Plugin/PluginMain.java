@@ -27,7 +27,6 @@ public class PluginMain extends Plugin {
     private static ImageIcon icon;
     private Color pluginLabelColor = new Color(0xcccccc);
     private Color pluginBackgroundColor = new Color(0x333333);
-    private Border border = BorderFactory.createLineBorder(new Color(73, 162, 255, 255));;
 
     /**
      * Do Not Remove, this is used for File-Engine to get message from the plugin.
@@ -70,7 +69,6 @@ public class PluginMain extends Plugin {
     public void setCurrentTheme(int defaultColor, int choseLabelColor, int borderColor) {
         pluginBackgroundColor = new Color(defaultColor);
         pluginLabelColor = new Color(choseLabelColor);
-        border = BorderFactory.createLineBorder(new Color(borderColor));
     }
 
     /**
