@@ -128,25 +128,8 @@ public class Settings {
     }
 
     private Settings() {
-        buttonSave.addActionListener(e -> {
-            try {
-                fromLangName = (String) listFromLang.getSelectedValue();
-                toLangName = (String) listToLang.getSelectedValue();
-                fromLang = Name_Abbreviation_map.get(fromLangName);
-                toLang = Name_Abbreviation_map.get(toLangName);
-                if (fromLang == null) {
-                    fromLang = "ZH_CN";
-                }
-                if (toLang == null) {
-                    toLang = "EN";
-                }
-                saveSettingsToFile(fromLang, toLang);
-                frame.setVisible(false);
-            }catch (NullPointerException e1) {
-                JOptionPane.showMessageDialog(frame, "您未选中任何语言");
-            }
-        });
         addTextFieldSearchListener();
+        addButtonSaveListener();
         addSearchThreads();
         addShowSelectedLang();
         initLanguageMap();
@@ -212,6 +195,27 @@ public class Settings {
         frame.setSize(600, 800);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    private void addButtonSaveListener() {
+        buttonSave.addActionListener(e -> {
+            try {
+                fromLangName = (String) listFromLang.getSelectedValue();
+                toLangName = (String) listToLang.getSelectedValue();
+                fromLang = Name_Abbreviation_map.get(fromLangName);
+                toLang = Name_Abbreviation_map.get(toLangName);
+                if (fromLang == null) {
+                    fromLang = "ZH_CN";
+                }
+                if (toLang == null) {
+                    toLang = "EN";
+                }
+                saveSettingsToFile(fromLang, toLang);
+                frame.setVisible(false);
+            }catch (NullPointerException e1) {
+                JOptionPane.showMessageDialog(frame, "您未选中任何语言");
+            }
+        });
     }
 
     private void addTextFieldSearchListener() {

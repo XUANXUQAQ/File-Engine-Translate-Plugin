@@ -67,11 +67,15 @@ public class TranslateUtil {
         }
         String trans = new TransApi("20200726000526910", "96r4ohd1IRLvZVhKj9sa").getTransResult(str, fromLang, toLang);
         JSONArray array = JSONObject.parseObject(trans).getJSONArray("trans_result");
-        JSONObject json = array.getJSONObject(0);
-        trans = json.getString("dst");
-        if (!trans.isEmpty()) {
-            string.setTranslated();
-            string.setTranslation(trans);
+        if (array != null) {
+            JSONObject json = array.getJSONObject(0);
+            trans = json.getString("dst");
+            if (!trans.isEmpty()) {
+                string.setTranslated();
+                string.setTranslation(trans);
+            } else {
+                string.setTranslation("");
+            }
         } else {
             string.setTranslation("");
         }

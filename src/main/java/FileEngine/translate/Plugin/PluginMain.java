@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class PluginMain extends Plugin {
@@ -131,7 +132,7 @@ public class PluginMain extends Plugin {
         instance.setToLang(toLang);
         instance.setFromLangName(instance.getAbbreviationByLangName(fromLang));
         instance.setToLangName(instance.getAbbreviationByLangName(toLang));
-        icon = new ImageIcon(PluginMain.class.getResource("/icon.png"));
+        icon = new ImageIcon(Objects.requireNonNull(PluginMain.class.getResource("/icon.png")));
     }
 
     /**
