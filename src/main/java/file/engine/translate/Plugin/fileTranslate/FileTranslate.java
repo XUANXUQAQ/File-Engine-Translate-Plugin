@@ -1,9 +1,9 @@
-package FileEngine.translate.Plugin.fileTranslate;
+package file.engine.translate.Plugin.fileTranslate;
 
-import FileEngine.translate.Plugin.PluginMain;
-import FileEngine.translate.Plugin.settings.Settings;
-import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
-import FileEngine.translate.Plugin.translate.TranslateUtil;
+import file.engine.translate.Plugin.PluginMain;
+import file.engine.translate.Plugin.settings.Settings;
+import file.engine.translate.Plugin.threadPool.CachedThreadPool;
+import file.engine.translate.Plugin.translate.TranslateUtil;
 
 import javax.swing.*;
 import java.io.*;

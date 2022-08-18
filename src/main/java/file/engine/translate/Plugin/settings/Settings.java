@@ -1,7 +1,7 @@
-package FileEngine.translate.Plugin.settings;
+package file.engine.translate.Plugin.settings;
 
-import FileEngine.translate.Plugin.PluginMain;
-import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
+import file.engine.translate.Plugin.PluginMain;
+import file.engine.translate.Plugin.threadPool.CachedThreadPool;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;

@@ -1,6 +1,6 @@
-package FileEngine.translate.Plugin.translate;
+package file.engine.translate.Plugin.translate;
 
-import FileEngine.translate.Plugin.translate.BaiduAPI.TransApi;
+import file.engine.translate.Plugin.translate.BaiduAPI.TransApi;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 

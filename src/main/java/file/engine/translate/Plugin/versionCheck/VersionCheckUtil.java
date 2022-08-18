@@ -1,4 +1,4 @@
-package FileEngine.translate.Plugin.versionCheck;
+package file.engine.translate.Plugin.versionCheck;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -10,7 +10,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 public class VersionCheckUtil {
-    private static final String CURRENT_VERSION = "2.2";
+    private static final String CURRENT_VERSION = "2.3";
     private static String updateURL;
 
     private static JSONObject getVersionInfo() throws IOException {

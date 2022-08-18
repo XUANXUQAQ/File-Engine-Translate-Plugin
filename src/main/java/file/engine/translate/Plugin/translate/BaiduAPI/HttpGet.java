@@ -1,4 +1,4 @@
-package FileEngine.translate.Plugin.translate.BaiduAPI;
+package file.engine.translate.Plugin.translate.BaiduAPI;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

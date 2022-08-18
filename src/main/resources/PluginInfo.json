@@ -1,5 +1,5 @@
 {
-  "className" : "FileEngine.translate.Plugin.PluginMain",
+  "className" : "file.engine.translate.Plugin.PluginMain",
   "identifier" : "tr",
   "name" : "Translate"
 }

@@ -1,14 +1,13 @@
-package FileEngine.translate.Plugin;
+package file.engine.translate.Plugin;
 
-import FileEngine.translate.Plugin.fileTranslate.FileTranslate;
-import FileEngine.translate.Plugin.settings.Settings;
-import FileEngine.translate.Plugin.threadPool.CachedThreadPool;
-import FileEngine.translate.Plugin.translate.TranslateUtil;
-import FileEngine.translate.Plugin.versionCheck.VersionCheckUtil;
+import file.engine.translate.Plugin.fileTranslate.FileTranslate;
+import file.engine.translate.Plugin.settings.Settings;
+import file.engine.translate.Plugin.threadPool.CachedThreadPool;
+import file.engine.translate.Plugin.translate.TranslateUtil;
+import file.engine.translate.Plugin.versionCheck.VersionCheckUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
