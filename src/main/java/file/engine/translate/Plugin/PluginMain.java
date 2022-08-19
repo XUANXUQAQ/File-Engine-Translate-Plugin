@@ -249,8 +249,7 @@ public class PluginMain extends Plugin {
      */
     @Override
     public String getDescription() {
-        String template = "<html><body>%s</body></html>";
-        return String.format(template, "English instruction:\n" +
+        return  "English instruction:\n" +
                 "A plugin that enables File-Engine to quickly translate strings\n" +
                 "How to use: >tr test --> return \"test\"\n" +
                 "Type \">tr >set\" in the search box ---> open the setting window to select the translation language\n" +
@@ -267,7 +266,7 @@ public class PluginMain extends Plugin {
                 "文件翻译可以自动翻译文件中的每一行文本，生成2个文件：withSource.txt withoutSource.txt\n" +
                 "withSource.txt ：显示为  \"原字符串=翻译字符串\"\n" +
                 "withoutSource.txt ：显示为  \"翻译字符串\"" +
-                "\n图标来自：<a target=\"_blank\" href=\"https://icons8.com/icon/8GBVhNNqHiGC/翻译\">翻译</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a>");
+                "\n图标来自： https://icons8.com/icon/8GBVhNNqHiGC/翻译 icon by https://icons8.com ";
     }
 
     /**
