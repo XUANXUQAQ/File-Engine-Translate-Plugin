@@ -31,6 +31,7 @@ public class PluginMain extends Plugin {
     /**
      * Do Not Remove, this is used for File-Engine to get message from the plugin.
      * You can show message using "displayMessage(String caption, String message)"
+     *
      * @return String[2], the first string is caption, the second string is message.
      * @see #displayMessage(String, String)
      */
@@ -41,8 +42,9 @@ public class PluginMain extends Plugin {
     /**
      * Do Not Remove, this is used for File-Engine to get results from the plugin
      * You can add result using "addToResultQueue(String result)".
-     * @see #addToResultQueue(String)
+     *
      * @return result
+     * @see #addToResultQueue(String)
      */
     public String pollFromResultQueue() {
         return _pollFromResultQueue();
@@ -50,6 +52,7 @@ public class PluginMain extends Plugin {
 
     /**
      * Do Not Remove, this is used for File-Engine to check the API version.
+     *
      * @return Api version
      */
     public int getApiVersion() {
@@ -58,6 +61,7 @@ public class PluginMain extends Plugin {
 
     /**
      * Do Not Remove, this is used for File-Engine to clear results to prepare for the next time.
+     *
      * @see #addToResultQueue(String)
      * @see #pollFromResultQueue()
      */
@@ -73,8 +77,8 @@ public class PluginMain extends Plugin {
 
     /**
      * When the search bar textChanged, this function will be called.
-     * @param text
-     * Example : When you input "&gt;examplePlugin TEST" to the search bar, the param will be "TEST"
+     *
+     * @param text Example : When you input "&gt;examplePlugin TEST" to the search bar, the param will be "TEST"
      */
     @Override
     public void textChanged(String text) {
@@ -114,14 +118,14 @@ public class PluginMain extends Plugin {
                         String result = "";
                         try {
                             result = TranslateUtil.getInstance().getTranslation(translateText, fromLang, toLang);
-                        }catch (IOException | IllegalAccessException | InvocationTargetException ignored) {
+                        } catch (IOException | IllegalAccessException | InvocationTargetException ignored) {
                         }
                         addToResultQueue("翻译结果：");
                         addToResultQueue(result);
                     }
                     TimeUnit.MILLISECONDS.sleep(1500);
                 }
-            }catch (InterruptedException ignored) {
+            } catch (InterruptedException ignored) {
             }
         });
         JSONObject json = Settings.readSettings();
@@ -146,7 +150,8 @@ public class PluginMain extends Plugin {
     /**
      * Invoked when a key has been released.See the class description for the swing KeyEvent for a definition of a key released event.
      * Notice : Up and down keys will not be included (key code 38 and 40 will not be included).
-     * @param e KeyEvent, Which key on the keyboard is released.
+     *
+     * @param e      KeyEvent, Which key on the keyboard is released.
      * @param result Currently selected content.
      */
     @Override
@@ -156,7 +161,8 @@ public class PluginMain extends Plugin {
     /**
      * Invoked when a key has been pressed. See the class description for the swing KeyEvent for a definition of a key pressed event.
      * Notice : Up and down keys will not be included (key code 38 and 40 will not be included).
-     * @param e KeyEvent, Which key on the keyboard is pressed.
+     *
+     * @param e      KeyEvent, Which key on the keyboard is pressed.
      * @param result Currently selected content.
      */
     @Override
@@ -171,7 +177,8 @@ public class PluginMain extends Plugin {
     /**
      * Invoked when a key has been typed.See the class description for the swing KeyEvent for a definition of a key typed event.
      * Notice : Up and down keys will not be included (key code 38 and 40 will not be included).
-     * @param e KeyEvent, Which key on the keyboard is pressed.
+     *
+     * @param e      KeyEvent, Which key on the keyboard is pressed.
      * @param result Currently selected content.
      */
     @Override
@@ -180,7 +187,8 @@ public class PluginMain extends Plugin {
 
     /**
      * Invoked when a mouse button has been pressed on a component.
-     * @param e Mouse event
+     *
+     * @param e      Mouse event
      * @param result Currently selected content.
      */
     @Override
@@ -194,7 +202,8 @@ public class PluginMain extends Plugin {
 
     /**
      * Invoked when a mouse button has been released on a component.
-     * @param e Mouse event
+     *
+     * @param e      Mouse event
      * @param result Currently selected content
      */
     @Override
@@ -204,6 +213,7 @@ public class PluginMain extends Plugin {
     /**
      * Get the plugin Icon. It can be the png, jpg.
      * Make the icon small, or it will occupy too much memory.
+     *
      * @return icon
      */
     @Override
@@ -213,6 +223,7 @@ public class PluginMain extends Plugin {
 
     /**
      * Get the official site of the plugin.
+     *
      * @return official site
      */
     @Override
@@ -222,6 +233,7 @@ public class PluginMain extends Plugin {
 
     /**
      * Get the plugin version.
+     *
      * @return version
      */
     @Override
@@ -232,11 +244,13 @@ public class PluginMain extends Plugin {
     /**
      * Get the description of the plugin.
      * Just write the description outside, and paste it to the return value.
+     *
      * @return description
      */
     @Override
     public String getDescription() {
-        return "English instruction:\n" +
+        String template = "<html><body>%s</body></html>";
+        return String.format(template, "English instruction:\n" +
                 "A plugin that enables File-Engine to quickly translate strings\n" +
                 "How to use: >tr test --> return \"test\"\n" +
                 "Type \">tr >set\" in the search box ---> open the setting window to select the translation language\n" +
@@ -252,11 +266,13 @@ public class PluginMain extends Plugin {
                 "在搜索框中输入 \" >tr >file \" --->打开文件翻译功能窗口：\n" +
                 "文件翻译可以自动翻译文件中的每一行文本，生成2个文件：withSource.txt withoutSource.txt\n" +
                 "withSource.txt ：显示为  \"原字符串=翻译字符串\"\n" +
-                "withoutSource.txt ：显示为  \"翻译字符串\"";
+                "withoutSource.txt ：显示为  \"翻译字符串\"" +
+                "\n图标来自：<a target=\"_blank\" href=\"https://icons8.com/icon/8GBVhNNqHiGC/翻译\">翻译</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a>");
     }
 
     /**
      * Check if the current version is the latest.
+     *
      * @return true or false
      * @see #getUpdateURL()
      */
@@ -268,8 +284,9 @@ public class PluginMain extends Plugin {
     /**
      * Get the plugin download url.
      * Invoke when the isLatest() returns false;
-     * @see #isLatest()
+     *
      * @return download url
+     * @see #isLatest()
      */
     @Override
     public String getUpdateURL() {
@@ -278,8 +295,9 @@ public class PluginMain extends Plugin {
 
     /**
      * Show the content to the GUI.
-     * @param result current selected content.
-     * @param label The label to be displayed.
+     *
+     * @param result   current selected content.
+     * @param label    The label to be displayed.
      * @param isChosen If the label is being selected.
      *                 If so, you are supposed to set the label at a different background.
      */
