@@ -1,25 +1,19 @@
 package file.engine.translate.Plugin.translate.BaiduAPI;
 
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 class HttpGet {
     protected static final int SOCKET_TIMEOUT = 10000; // 10S
@@ -29,7 +23,7 @@ class HttpGet {
         try {
             // 设置SSLContext
             SSLContext sslcontext = SSLContext.getInstance("TLS");
-            sslcontext.init(null, new TrustManager[] { myX509TrustManager }, null);
+            sslcontext.init(null, new TrustManager[]{myX509TrustManager}, null);
 
             String sendUrl = getUrlWithQueryString(host, params);
 
@@ -49,7 +43,7 @@ class HttpGet {
             InputStream is = conn.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder builder = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 builder.append(line);
             }
@@ -112,7 +106,7 @@ class HttpGet {
 
     /**
      * 对输入的字符串进行URL编码, 即转换为%20这种形式
-     * 
+     *
      * @param input 原文
      * @return URL编码. 如果编码失败, 则返回原文
      */
@@ -121,13 +115,8 @@ class HttpGet {
             return "";
         }
 
-        try {
-            return URLEncoder.encode(input, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        return URLEncoder.encode(input, StandardCharsets.UTF_8);
 
-        return input;
     }
 
     private static final TrustManager myX509TrustManager = new X509TrustManager() {

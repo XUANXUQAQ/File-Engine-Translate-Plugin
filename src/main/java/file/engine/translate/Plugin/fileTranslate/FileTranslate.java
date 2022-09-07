@@ -79,7 +79,7 @@ public class FileTranslate {
                     }
                     TimeUnit.MILLISECONDS.sleep(200);
                 }
-            }catch (InterruptedException ignored) {
+            } catch (InterruptedException ignored) {
             }
         });
     }
@@ -113,7 +113,7 @@ public class FileTranslate {
                 String result;
                 try {
                     result = TranslateUtil.getInstance().getTranslation(eachLine, Settings.getInstance().getFromLang(), Settings.getInstance().getToLang());
-                }catch (IOException | IllegalAccessException | InvocationTargetException e) {
+                } catch (IOException | IllegalAccessException | InvocationTargetException e) {
                     labelStatus.setText("Request translation too frequently, please try later.");
                     break;
                 }
@@ -130,8 +130,8 @@ public class FileTranslate {
                     break;
                 }
             }
-        }catch (IOException | InterruptedException ignored) {
-        }finally {
+        } catch (IOException | InterruptedException ignored) {
+        } finally {
             status = TRANSLATE_DONE;
             labelStatus.setText("Translated.");
             try {

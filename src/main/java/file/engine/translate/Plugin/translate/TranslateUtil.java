@@ -85,7 +85,7 @@ public class TranslateUtil {
         try {
             //拼接API网址
             String address = "http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=" + fromLang + "&tl=" + toLang +
-                    "&q=" + URLEncoder.encode(str, "UTF-8");
+                    "&q=" + URLEncoder.encode(str, StandardCharsets.UTF_8);
             JSONObject translateJson = getWebInfo(address);
             JSONObject result = translateJson.getJSONArray("sentences").getJSONObject(0);
             string.setTranslated();

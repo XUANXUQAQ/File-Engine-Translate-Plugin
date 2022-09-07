@@ -44,7 +44,7 @@ public class Settings {
     private volatile boolean isStartSearchToLang;
 
     public static JSONObject readSettings() {
-        StringBuilder strBuilder =  new StringBuilder();
+        StringBuilder strBuilder = new StringBuilder();
         String eachLine;
         try (BufferedReader buffr = new BufferedReader(new InputStreamReader(new FileInputStream(configsPath), StandardCharsets.UTF_8))) {
             while ((eachLine = buffr.readLine()) != null) {
@@ -54,7 +54,7 @@ public class Settings {
                 throw new IOException("No content");
             }
             return JSONObject.parseObject(strBuilder.toString());
-        }catch (IOException e) {
+        } catch (IOException e) {
             initSettings();
             return readSettings();
         }
@@ -78,7 +78,7 @@ public class Settings {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(configsPath), StandardCharsets.UTF_8))) {
             String format = JSON.toJSONString(settings, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat);
             bw.write(format);
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -90,7 +90,7 @@ public class Settings {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(configsPath), StandardCharsets.UTF_8))) {
             String format = JSON.toJSONString(json, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat);
             bw.write(format);
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -120,7 +120,7 @@ public class Settings {
     }
 
     public void setFromLang(String lang) {
-        fromLang =lang;
+        fromLang = lang;
     }
 
     public void setToLang(String lang) {
@@ -153,9 +153,9 @@ public class Settings {
     }
 
     public String getAbbreviationByLangName(String value) {
-        for(String key: Name_Abbreviation_map.keySet()){
-            if(Name_Abbreviation_map.get(key).equals(value)){
-               return key;
+        for (String key : Name_Abbreviation_map.keySet()) {
+            if (Name_Abbreviation_map.get(key).equals(value)) {
+                return key;
             }
         }
         return "";
@@ -212,7 +212,7 @@ public class Settings {
                 }
                 saveSettingsToFile(fromLang, toLang);
                 frame.setVisible(false);
-            }catch (NullPointerException e1) {
+            } catch (NullPointerException e1) {
                 JOptionPane.showMessageDialog(frame, "您未选中任何语言");
             }
         });
