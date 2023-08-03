@@ -3,7 +3,6 @@ package file.engine.translate.Plugin;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Plugin {
@@ -69,4 +68,6 @@ public abstract class Plugin {
     public abstract String getAuthor();
 
     public abstract void setCurrentTheme(int defaultColor, int choseLabelColor, int borderColor);
+
+    public abstract void openSettings();
 }

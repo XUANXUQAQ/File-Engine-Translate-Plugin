@@ -75,6 +75,11 @@ public class PluginMain extends Plugin {
         pluginLabelColor = new Color(choseLabelColor);
     }
 
+    @Override
+    public void openSettings() {
+        Settings.getInstance().showWindow();
+    }
+
     /**
      * When the search bar textChanged, this function will be called.
      *
